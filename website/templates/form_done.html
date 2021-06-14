@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" type="text/css" href="../static/styles/styles.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/3.6.95/css/materialdesignicons.css">
+
+    <link rel="stylesheet" type="text/css" href="../static/styles/player.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../static/styles/index.css">
+    <link rel="stylesheet" type="text/css" href="../static/styles/staff.css">
+</head>
+<body>
+    <header>
+        <div class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4 header-div">
+            <img class="logo-img" src="../static/images/logo.png">
+            <a href="http://localhost:5000/"><input type="button" value="Log Out"></a>
+        </div>
+    </header>
+    <div class="container-fluid">
+        <div class="row main-row">
+            <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
+                <div class="row my-4 player-head-row">
+                    <div class="col-12 col-md-6 col-lg-2 mb-4 mb-lg-0 player_day">
+                    </div>
+                    <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-8 player_day player-head">
+                        <div class="m-b-25 player-img">
+                            <img src="../static/images/{{ user }}.png" class="img-radius" alt="{{ user }}-Profile-Image">
+                        </div>
+                        <div class="half-header">
+                            <h3 class="f-w-600">Thank you, {{ name }}</h3>
+                            <input type="hidden" id="player_user" name="{{ user }}" value="{{ user }}">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-2 mb-4 mb-lg-0 player_day">
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-12 col-md-6 col-lg-2 mb-4 mb-lg-0 player_day">
+                    </div>
+                    <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-8 player_day">
+                        <div class="card">
+                            <h5 class="card-header">Your Daily Well-Being Record</h5>
+                            <div class="card-body">
+                                <p>has been correctly submitted for today.<br>
+                                    Come back tomorrow.
+                                </p>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-2 player_day">
+                    </div>
+                </div>
+            </main>
+        </div>
+      </div>
+</body>
+</html>

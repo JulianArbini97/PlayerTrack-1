@@ -1,0 +1,45 @@
+@media only screen and (min-width: 1400px) {
+    p {
+        font-size: 14px
+    }
+}
+.slider {
+    padding: 0;
+    margin: 0 .75rem;
+}
+.input-group p {
+    margin-bottom: 0;
+    width: 21px;
+    text-align: center;
+}
+.fa, .fab, .fal, .far, .fas {
+    width: 20px;
+}
+.profile_container {
+    margin-top: 50px;
+}
+.right-part {
+    background-color: #333;
+}
+.player-head {
+    border-radius: 0.25rem;
+    background-color: #232323;
+    color: #ededed;
+    max-height: 120px;
+    display: flex;
+    flex-direction: row;
+}
+.player-head-row {
+    margin-top: 0 !important;
+}
+.player-img {
+    width: 120px;
+    height: 120px;
+    margin: 5px;
+}
+.half-header {
+    align-self: center;
+}
+.half-header h3 {
+    margin-bottom: 0;
+}

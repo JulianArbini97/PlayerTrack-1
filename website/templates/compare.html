@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/styles/styles.css">
+    <script type="text/javascript" src="../static/scripts/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../static/styles/staff.css">
+</head>
+<body>
+    <header>
+        <div class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4 header-div">
+            <a href="http://localhost:5000/staff/CCarter"><img class="logo-img" src="../static/images/logo.png"></a>
+            <a href="http://localhost:5000/"><input type="button" value="Log Out"></a>
+        </div>
+    </header>
+    <div class="container-fluid">
+        <div class="row">
+            <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
+                    <div>
+                        <h1 class="h2 compare-h2">Compare Player Stats</h1>
+                    </div>
+                <div class="row my-4">
+                    <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                        <div class="card">
+                            <h5 class="card-header">Select Players</h5>
+                            <div class="card-body player_scroll">
+                                <div id="compare_players" required>
+                                    {% for player in all_players %}
+                                    <div class="form-check form-check-inline">
+                                        <input name="player" class="chckbx form-check-input" type="checkbox" value="{{ player[0] }}" id="{{ player[0] }}"/>
+                                        <label class="form-check-label" for="player">{{ player[1] }} {{ player[2] }}</label>
+                                    </div>
+                                    {% endfor %}
+                                    {% for player in all_players %}
+                                    <div class="form-check form-check-inline">
+                                        <input name="player" class="chckbx form-check-input" type="checkbox" value="{{ player[0] }}" id="{{ player[0] }}"/>
+                                        <label class="form-check-label" for="player">{{ player[1] }} {{ player[2] }}</label>
+                                    </div>
+                                    {% endfor %}
+                                    {% for player in all_players %}
+                                    <div class="form-check form-check-inline">
+                                        <input name="player" class="chckbx form-check-input" type="checkbox" value="{{ player[0] }}" id="{{ player[0] }}"/>
+                                        <label class="form-check-label" for="player">{{ player[1] }} {{ player[2] }}</label>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card compare_vars">
+                            <h5 class="card-header">Variable to Compare</h5>
+                            <div class="card-body">
+                                <div id="compare_variables" required>
+                                    <div class="form-check form-check-inline">
+                                        <input class="variable form-check-input" name="variable" type="radio" value="acc100"/>
+                                        <label class="form-check-label">Accelsx100m</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="variable form-check-input" name="variable" type="radio" value="coll10"/>
+                                        <label class="form-check-label">Collisionsx10min</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="variable form-check-input" name="variable" type="radio" value="coll100"/>
+                                        <label class="form-check-label">Collisionsx100m</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="variable form-check-input" name="variable" type="radio" value="accdec"/>
+                                        <label class="form-check-label">Accels/Decels</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="variable form-check-input" name="variable" type="radio" value="accdeccol"/>
+                                        <label class="form-check-label">Accels/Decels-Colls</label>
+                                    </div>
+                                </div>
+                                <button class="form-control var-btn" type='button' id ='retrieve'>Submit</button>
+                            </div>
+                            <script>
+                                $(document).ready(function() {
+                                   $('#retrieve').click(function(){
+                                    var selected = [];
+                                    $('#compare_players input:checked').each(function() {
+                                        selected.push(parseInt($(this).val()));
+                                    });
+                                    var variable = $('#compare_variables input:checked').val();
+                                    if (variable == "acc100") {
+                                        $('.var_name_compare').text("Accelerations every 100 meters");
+                                    } else if (variable == "coll100") {
+                                        $('.var_name_compare').text("Collisions every 100 meters");
+                                    } else if (variable == "coll10") {
+                                        $('.var_name_compare').text("Collisions every 10 mins");
+                                    } else if (variable == "accdec") {
+                                        $('.var_name_compare').text("Accelerations over Decelerations");
+                                    } else if (variable == "accdeccol") {
+                                        $('.var_name_compare').text("Accels over Decels minus Collisions");
+                                    }
+                                    $('#post_url').prop('value', selected);
+                                    $('#render_variable').prop('value', variable);
+                                    $.ajax({
+                                        url: "/staff/get_vars",
+                                        type: "get",
+                                        data: {variable: variable + "-" + selected},
+                                        success: function(response) {
+                                            create_chart(response.list, response.var, response.names);
+                                        },
+                                        error: function(xhr) {
+                                        }
+                                    });
+                                });
+                            });
+                            </script>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-9">
+                        <div class="card">
+                            <h5 class="card-header">Comparison Chart</h5>
+                            <div class="card-body">
+                                <div id="dynamic_chart">
+                                    <h3 class="var_name_compare" style="color: #000;">&nbsp;</h3>
+                                    <canvas class="canvas_size" id="myChart_dynamic" data_id="no" width="400" height="400"></canvas>
+                                </div>
+                                <script type="text/javascript" src="../static/scripts/compare_players.js"></script>
+                                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js"></script> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+</body>
+</html>

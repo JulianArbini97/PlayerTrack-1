@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../static/scripts/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/styles/styles.css">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../static/styles/staff.css">
+</head>
+<body>
+    <header>
+        <div class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4 header-div">
+            <img class="logo-img" src="../static/images/logo.png">
+            <a href="http://localhost:5000/"><input type="button" value="Log Out"></a>
+        </div>
+    </header>
+    <div class="container-fluid">
+        <div class="row main-row">
+            <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
+                <div class="my-4">
+                    <div class="col-12 col-md-6 col-lg-12 mb-4 mb-lg-0 staff_profile">
+                        <div class="m-b-25">
+                            <img src="../static/images/CCarter.png" class="img-radius" alt="Carter-Profile-Image">
+                        </div>
+                        <div class="half-header">
+                            <h1 class="h2">Hello, {{ name }}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
+                        <div class="card">
+                            <h5 class="card-header">Player Profiles</h5>
+                            <div class="card-body">
+                                <p>Pick a player to go to their profile</p>
+                                <form id="form_select">
+                                    <select id="select_player" class="custom-select form-control">
+                                            <option selected>Player List</option>
+                                        {% for player in players | sort %} 
+                                            <option value="{{ player[2] }}" id="{{ player[2] }}"> {{ player[0] }} {{ player[1] }}   
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    <input type="submit" value="Go" class="btn_sel_player btn-style">
+                                </form>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-4">
+                        <div class="card">
+                            <h5 class="card-header">Daily Records</h5>
+                            <div class="card-body">
+                                <p>Highlighted players have already completed their daily registry</p>
+                                <table id="table_registries" class="display table">
+                                    <thead class="thead-light">
+                                        <tr class="header">
+                                            <th onclick="sortTable(0)">Player</th>
+                                            <th onclick="sortTable(1)">Registry</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for key, value in user_dict.items() %}
+                                        <tr>
+                                            <td class="{{ value }}" value="{{ key }} registry">{{ key }}</td>
+                                            <td class="{{ value }}" value="{{ key }} {{ value }}">{{ value }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-4">
+                        <div class="card">
+                            <h5 class="card-header">Compare Players</h5>
+                            <div class="card-body">
+                                <p>Select variables and compare player performance throughout all matches.</p>
+                                <a href="http://localhost:5000/staff/compare"><input class="btn-style" type="submit" value="Go"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+</body>
+</html>

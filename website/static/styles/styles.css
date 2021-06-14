@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css?family=Encode+Sans+Condensed:600,700');
+*{
+  margin:0;
+  padding:0;
+  /*font-family: 'Encode Sans Condensed', sans-serif;*/
+}
+body{
+  background-image: linear-gradient(to bottom left, rgb(52,90,127), rgb(40,53,64));
+  width: 100%;
+  height: 100vh;
+}
+
+section{
+  background:rgb(26,45,64);
+  width:34%;
+  height:330px;
+  text-align:center;
+  position:relative;
+  left: 33%;
+  top:33%;
+  border-radius:50px;
+  padding:20px;
+  border: 2px red;
+  color:white;
+}
+
+h1{
+  margin-top:20px;
+  margin-bottom: 20px;
+}
+
+input{
+  width:100%;
+  /*height:30px;*/
+  margin-bottom:20px;
+}
+input[type=text], input[type=password]{
+  border:none;
+  border-bottom: 2px solid rgb(161,214,255);
+  background: none;
+  color:#4d4dff;
+  -webkit-transition: width 0.5s ease-in-out;
+  transition: width 0.5s ease-in-out;
+}
+input[type=text]:focus, input[type=password]:focus{
+  width: 60%;
+}
+/*input[type=button]{
+  cursor:pointer;
+  background-color:rgb(161,214,255);
+  border:none;
+  border-radius:5px;
+  color:rgb(26,45,64);
+}
+input[type=button]:hover{
+  background-color:rgb(52,90,127);
+}*/
+/* Beggins table matches */
+.myInput {
+  background-position: 10px 12px; /* Position the search icon */
+  background-repeat: no-repeat; /* Do not repeat the icon image */
+  width: 70px; /* Full-width */
+  font-size: 16px; /* Increase font-size */
+  padding: 12px 20px 12px 40px; /* Add some padding */
+  border: 1px solid #ddd; /* Add a grey border */
+  margin-bottom: 12px; /* Add some space below the input */
+}
+
+/*#btn {
+  width: 90px;
+  height: 50px;
+}*/
+/* Ends table matches */
+
+.yes {
+  background-color: #3e4042 !important;
+}

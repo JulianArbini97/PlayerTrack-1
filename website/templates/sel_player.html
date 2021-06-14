@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/styles/styles.css">
+   <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">-->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../static/scripts/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js"></script>    
+    <title>Selected: {{ name }}</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../static/styles/staff.css">
+</head>
+<body>
+  <header>
+    <div class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4 header-div">
+        <a href="http://localhost:5000/staff/CCarter"><img class="logo-img" src="../static/images/logo.png"></a>
+        <a href="http://localhost:5000/"><input type="button" value="Log Out"></a>
+    </div>
+  </header>
+      <div class="container-fluid">
+        <div class="row">
+          <main class="col-md-9 ml-sm-auto col-lg-12 px-md-4 py-4">
+            <div class="row my-4">
+                  <div class="col-12 col-md-6 col-lg-6 mb-4 mb-lg-0">
+                    <div id="player_part">
+                      <div class="m-b-25">
+                        <img src="../static/images/{{ user }}.png" class="img-radius" alt="{{ user }}-Profile-Image">
+                      </div>
+                      <div class="half-header">
+                        <h2 class="h2">{{ name }}</h2>
+                        <h3 class="h3">Position: {{ position }}</h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-6 mb-4 mb-lg-0">
+                    <div class="card">
+                        <h5 class="card-header">Daily Registries</h5>
+                        <div class="card-body">
+                          <div id="daily_reg">
+                            <h5>{{ no }}</h5>
+                            {% if daily %}
+                            <h4>Date: {{ daily[0] }}</h4>
+                            <hr class="hr2">
+                            <table id="table_registries" class="display table">
+                              <tbody>
+                                  <tr>
+                                    <td>Weight: <span id="d_weight"></span></td>
+                                    <td>{{ daily[1] }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Energy: <span id="d_energy"></span></td>
+                                    <td>{{ daily[2] }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Sleep: <span id="d_sleep"></span></td>
+                                    <td>{{ daily[3] }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Pain: <span id="d_pain"></span></td>
+                                    <td>{{ daily[4] }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Description: <span id="d_description"></span></td>
+                                    <td>{{ daily[5] }}</td>
+                                  </tr>
+                              </tbody>
+                            </table>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+            <div class="row my-4">
+              <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-12">
+                  <div class="card">
+                    <h5 class="card-header">Filters and Stats</h5>
+                    <div class="card-body">
+                    <div id="table_filters">
+                      <h3>Variable Filters</h3>
+                      <table id="match_table" class="table">
+                        <tbody>
+                          <tr>
+                            <td><input type="hidden"></td>
+                            <td><b>Minimums:</b></td>
+                            <td><input type="text" id="min_min" name="min_min" placeholder="Minutes"></td>
+                            <td><input type="text" id="min_dist" name="min_dist" placeholder="Distance"></td>
+                            <td><input type="text" id="min_hsr" name="min_hsr" placeholder="HSR"></td>
+                            <td><input type="text" id="min_hmld" name="min_hmld" placeholder="HMLD"></td>
+                            <td><input type="text" id="min_acce" name="min_acce" placeholder="Accels."></td>
+                            <td><input type="text" id="min_dece" name="min_dece" placeholder="Decels."></td>
+                            <td><input type="text" id="min_spee" name="min_spee" placeholder="Max Speed"></td>
+                            <td><input type="text" id="min_coll" name="min_coll" placeholder="Collisions"></td>
+                          </tr>
+                          <tr>
+                            <td><input type="hidden"></td>
+                            <td><b>Maximums:</b></td>
+                            <td><input type="text" id="max_min" name="max_min" placeholder="Minutes"></td>
+                            <td><input type="text" id="max_dist" name="max_dist" placeholder="Distance"></td>
+                            <td><input type="text" id="max_hsr" name="max_hsr" placeholder="HSR"></td>
+                            <td><input type="text" id="max_hmld" name="max_hmld" placeholder="HMLD"></td>
+                            <td><input type="text" id="max_acce" name="max_acce" placeholder="Accels."></td>
+                            <td><input type="text" id="max_dece" name="max_dece" placeholder="Decels."></td>
+                            <td><input type="text" id="max_spee" name="max_spee" placeholder="Max Speed"></td>
+                            <td><input type="text" id="max_coll" name="max_coll" placeholder="Collisions"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <hr class="hr2">
+                    <div id="match_statistics">
+                      <h3>Match Statistics</h3>
+                      <table style="width:100%" id="myTable" class="display table">
+                        <thead>
+                          <tr class="header">
+                              <th onclick="sortTable(0)">Opponent</th>
+                              <th onclick="sortTable(1)">Date</th>
+                              <th onclick="sortTable(2)">Minutes</th>
+                              <th onclick="sortTable(3)">Distance</th>
+                              <th onclick="sortTable(4)">HSR</th>
+                              <th onclick="sortTable(5)">HMLD</th>
+                              <th onclick="sortTable(6)">Accels.</th>
+                              <th onclick="sortTable(7)">Decels.</th>
+                              <th onclick="sortTable(8)">Max-speed</th>
+                              <th onclick="sortTable(9)">Collisions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for match in matches %}
+                          <tr>
+                              {% for i in range(0, match|length) %}
+                              <td class="match_values" value=" {{ match[i] }}">{{ match[i] }}</td>
+                              {% endfor %}
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+              <input type="button" id="btn_advstats" class="btns btn btn-style" value="Advanced Stats" onclick="adv_stats()">
+              <div id="filters" style="display: none;">
+                <div class="row my-4">
+                  <div class="col-12 col-md-3 mb-4 mb-lg-0 col-lg-4">
+                      <h2>Filters:</h2>
+                      <input class="btns btn btn-style" type="button" id="btn_acc100" value="Accelerations/100m" onclick="show_acc100()">
+                      <input class="btns btn btn-style" type="button" id="btn_coll10" value="Collisions/10mins" onclick="show_coll10()">
+                      <input class="btns btn btn-style" type="button" id="btn_coll100" value="Collisions/100m" onclick="show_coll100()">
+                      <input class="btns btn btn-style" type="button" id="btn_accDec" value="Accelerations/Decelerations" onclick="show_accDec()">
+                      <input class="btns btn btn-style" type="button" id="btn_accDecCol" value="Accelerations/Decelerations no Collisions" onclick="show_accDecCol()">
+                  </div>
+                  <div class="col-12 col-md-9 mb-4 mb-lg-0 col-lg-8 charts">
+                    <div id="acc100" style="display: none;">
+                      <h3 style="color: #FFF;">Accelerations every 100 meters</h3>
+                      <canvas id="myChart_acc100" width="400" height="400"></canvas>
+                    </div>
+                    <div id="coll10" style="display: none;">
+                      <h3 style="color: #FFF;">Collisions every 10 minutes</h3>
+                      <canvas id="myChart_coll10" width="400" height="400"></canvas>
+                    </div>
+                    <div id="coll100" style="display: none;">
+                      <h3 style="color: #FFF;">Collisions every 100 meters</h3>
+                      <canvas id="myChart_coll100" width="400" height="400"></canvas>
+                    </div>
+                    <div id="accDec" style="display: none;">
+                      <h3 style="color: #FFF;">Accelerations over Decelerations</h3>
+                      <canvas id="myChart_accDec" width="400" height="400"></canvas>
+                    </div>
+                    <div id="accDecCol" style="display: none;">
+                      <h3 style="color: #FFF;">Accelerations over Decelerations no Collisions</h3>
+                      <canvas id="myChart_accDecCol" width="400" height="400"></canvas>
+                    </div>
+                  </div>
+                </div>
+              <script type="text/javascript" src="../static/scripts/player_charts.js"></script>
+            
+            
+            </div>
+            <div class="row my-4">
+              <div class="col-12 col-md-6 col-lg-6 mb-4 mb-lg-0">
+                  <div class="card inj_card">
+                      <h5 class="card-header">Injury Registry:</h5>
+                      <div class="card-body">
+                        <table class="display dataTable table" role="grid">
+                          <thead class="thead-dark">
+                            <tr class="header">
+                                <th>#</th>
+                                <th onclick="sortTable(0)" class="min_th">Date</th>
+                                <th onclick="sortTable(1)">Description</th>
+                                <th class="min_th">Recovered</th>
+                            </tr>
+                        </thead>
+                        {% for injury in injuries %}
+                        <tr>
+                            <td><input type="radio" class="edit radio-btn" value="{{ injury[0] }}" name="edit"></td>
+                            {% for i in range(1, injury|length) %}
+                              {% if injury[i] == None %}
+                              <td>Not yet</td>
+                              {% else %}
+                              <td>{{ injury[i] }}</td>
+                              {% endif%}
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                        </table>
+                      </div>
+                    </div>
+              </div>
+              <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+                  <div class="card inj_car">
+                      <h5 class="card-header">Add Injury:</h5>
+                      <div class="card-body">
+                        <form action="{{ url_for('submit_add') }}" method="POST" id="add_injury">
+                          <label for="date">Date:</label>
+                          <input class="form-control inj_input" type="date" id="date" name="date" required="required">
+                          <label for="description">Description:</label>
+                          <textarea id="description" name="description" form="add_injury" placeholder="Describe the injury..." required="required" class="form-control inj_input"></textarea>
+                          <hr>
+                          <p class="p-injury">Submitting an old injury?</p>
+                          <div class="form-check form-check-inline">
+                            <label for="recovered" class="form-check-label">Add recovery date:</label>
+                            <input class="form-check-input" id="check" name="check" type="checkbox" value="yes">
+                          </div>
+                          <input class="form-control inj_input" type="date" id="recovered" name="recovered" disabled>
+                          <input class="form-control" type="hidden" id="player_id" name="player_id" value="{{ player_id }}">
+                          <input class="form-control btn-style" type="submit" value="Add injury">
+                        </form>
+                      </div>
+                    </div>
+              </div>
+              <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+                  <div class="card inj_card">
+                      <h5 class="card-header">Update Injury:</h5>
+                      <div class="card-body">
+                        <p class="p-injury">To add recovery date or delete, select an injury from the table</p>
+                        <hr class="hr-injury">
+                        <form action="{{ url_for('submit_edit') }}" method="POST" id="edit_recovery" enctype="multipart/form-data">
+                          <label for="edit_recovered">Add recovery date:</label>
+                          <input class="form-control inj_input" type="date" id="edit_recovered" name="edit_recovered" required="required" disabled>
+                          <input type="hidden" id="injury_id" name="injury_id" value="">
+                          <input type="submit" value="Add date" id="btn" class="form-control btn-style">
+                        </form>
+                        <br>
+                        <h6>Delete injury</h6>
+                        <form action="{{ url_for('submit_delete') }}" method="POST" id="delete_injury" enctype="multipart/form-data">
+                          <input class="form-control" type="hidden" id="injury_id_delete" name="injury_id_delete" value="">
+                          <input type="submit" value="Delete selected injury" class="form-control btn-style btn-delete">
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+          </main>
+        </div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+</body>
+</html>
