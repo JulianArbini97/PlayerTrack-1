@@ -89,37 +89,11 @@ $(document).on("submit", "form", function (e) {
             location.reload();
           }
         })
-    } /*else if (formId == "compare_select"){
-        var selected = [];
-        $('#compare_players input:checked').each(function() {
-            selected.push(parseInt($(this).val()));
-        });
-        var variable = $('#compare_variables input:checked').val();
-        $('#post_url').prop('value', selected);
-        $('#render_variable').prop('value', variable);
-        var post_url = '/staff/compare';
-        $.ajax({
-          type:'POST',
-          url:post_url,
-          data: {
-              sel: $('#post_url').val(),
-              vari: $('#render_variable').val(),
-          },
-        })
-    }*/
-    // Do stuff
+    }
     return false;
   })
 
 function ini () {
-    /* Get Date 
-    n =  new Date();
-    y = n.getFullYear();
-    m = n.getMonth() + 1;
-    d = n.getDate();
-    document.getElementById("date").innerHTML = "Today's date is: " + d + "-" + m + "-" + y;
-    */
-
     $('#energy').on('input', function() {
         $(this).next('#penergy').html(this.value);
     });
@@ -171,7 +145,7 @@ function filter_op() {
     table = document.getElementById("myTable");
     tr = table.getElementsByTagName("tr");
 
-    // Loop through all table rows, and hide those who don't match the search query
+    // Loop through all table rows, and hide those that don't match the search query
     for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[0];
         if (td) {

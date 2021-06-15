@@ -218,7 +218,6 @@ for (let i = 0; i < allAccs.length; i++) {
 var cont = 0;
 var sum = 0;
 for (let i = 0; i < accDecCol.length; i++) {
-/*EL 11 ESTA SACADO A PREPO, VALOR NO COHERENTE AL RESTO - VER QUE ONDA*/
     if (accDecCol[i] != 0.001 || accDecCol[i] != 11) {
     cont++;
     sum += accDecCol[i];

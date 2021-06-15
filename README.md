@@ -95,7 +95,7 @@ A common table `injuries` records all players' injuries with the player_id, date
 User Login:
 ![login](https://github.com/sfrechou/PlayerTrack/blob/main/dist/README_src/screen_login.png?raw=true)
 
-PLayer Daily Input:
+Player Daily Input:
 ![login](https://github.com/sfrechou/PlayerTrack/blob/main/dist/README_src/screen_player_view.png?raw=true)
 
 Staff Dashboard:
