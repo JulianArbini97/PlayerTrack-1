@@ -23,6 +23,7 @@ db = MySQLdb.connect(host=MY_HOST, user=MY_USER, passwd=MY_PASS,
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    """Login method - check password"""
     if request.method == 'POST':
         if 'username' in request.form and 'password' in request.form:
             username = request.form['username']
@@ -46,7 +47,7 @@ def index():
                     if players[5] == password:
                         return redirect(url_for('player', text=username))
                     else:
-                        return render_template("login.html", res='<p class="res alert alert-danger" id="alert_message">wrong player password</p>') 
+                        return render_template("login.html", res='<p class="res alert alert-danger" id="alert_message">wrong player password</p>')
             else:
                 return render_template("login.html", res='<p class="res alert alert-danger" id="alert_message">wrong user</p>')
     return render_template("login.html", res='<p class="res alert">&nbsp;</p>')
@@ -54,6 +55,7 @@ def index():
 
 @app.route('/staff/<text>')
 def staff(text):
+    """Loads custom staff Dashboard"""
     db = MySQLdb.connect(host=MY_HOST, user=MY_USER, passwd=MY_PASS,
                         db=MY_DB)
     sta = db.cursor()
@@ -97,6 +99,7 @@ def staff(text):
 
 @app.route('/staff/select_<text>')
 def p_select(text):
+    """Loads a specific player profile from staff dashboard"""
     db = MySQLdb.connect(host=MY_HOST, user=MY_USER, passwd=MY_PASS,
                         db=MY_DB)
     pla = db.cursor()
@@ -169,29 +172,28 @@ def p_select(text):
 
 @app.route('/staff/compare')
 def p_compare():
-    sel = ""
-    vari = ""
-    
+    """Loads compare section"""
     db = MySQLdb.connect(host=MY_HOST, user=MY_USER, passwd=MY_PASS,
                         db=MY_DB)
  
     """Loads individual player information"""
-    pla = db.cursor()
-    pla.execute("SELECT id, first_name, last_name FROM players")
-    players = pla.fetchall()
-    list_p = []
+    players = db.cursor()
+    players.execute("SELECT id, first_name, last_name FROM players")
+    players = players.fetchall()
+    list_player = []
     big_list = []
     for player in players:
         in_list = []
         for i in range(0, 3):
             in_list.append(player[i])
-        list_p.append(in_list)
-    return render_template('compare.html', all_players=list_p)
+        list_player.append(in_list)
+    return render_template('compare.html', all_players=list_player)
 
 @app.route('/staff/get_vars')
 def get_prediction():
-    vari = request.args.get('variable')
-    separate = vari.split('-')
+    """Method for dynamic charts"""
+    var = request.args.get('variable')
+    separate = var.split('-')
     variable = separate[0]
     player_id = separate[1].split(',')
     big_list = []
@@ -226,6 +228,7 @@ def get_prediction():
 
 @app.route('/submit_add', methods=['POST'])
 def submit_add():
+    """Add injury to database"""
     if request.method == "POST":
         description = request.form["description"]
         date = request.form["date"]
@@ -248,6 +251,7 @@ def submit_add():
 
 @app.route('/submit_edit', methods=['POST'])
 def submit_edit():
+    """Edit existing injury"""
     if request.method == "POST":
         new_values = request.form.to_dict()
         new_date = new_values['new_date']
@@ -262,6 +266,7 @@ def submit_edit():
 
 @app.route('/submit_delete', methods=['POST'])
 def submit_delete():
+    """Delete existing injury"""
     if request.method == "POST":
         new_values = request.form.to_dict()
         injury_id = new_values['injury_id']
@@ -274,6 +279,7 @@ def submit_delete():
 
 @app.route('/player/<text>')
 def player(text):
+    """Load specific player profile"""
     db = MySQLdb.connect(host=MY_HOST, user=MY_USER, passwd=MY_PASS,
                         db=MY_DB)
     pla = db.cursor()
@@ -297,6 +303,7 @@ def player(text):
 
 @app.route('/player/<text>', methods=['POST'])
 def player_post(text):
+    """Save daily values on to every player's table"""
     weight = float(request.form["weight"])
     energy = float(request.form["energy"])
     sleep = float(request.form["sleep"])

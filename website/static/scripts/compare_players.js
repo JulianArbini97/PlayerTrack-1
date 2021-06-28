@@ -1,3 +1,5 @@
+/* Calculates all data for compare section charts */
+
 function create_chart(all_info, variable, names) {
     for (let i = 0; i < all_info.length; i++) {
         var opponents = []
